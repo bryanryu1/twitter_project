@@ -8,7 +8,7 @@ import os
 dimensionality = 256
 
 batch_size = 10
-epochs = 20
+epochs = 300
 
 # Encoder training setup
 encoder_inputs = Input(shape=(None, num_encoder_tokens))
