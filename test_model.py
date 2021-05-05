@@ -32,14 +32,12 @@ def decode_sequence(test_input):
   # Populate the first token of target sequence with the start token.
   target_seq[0, 0, target_features_dict['<START>']] = 1.
 
-  # Sampling loop for a batch of sequences
-  # (to simplify, here we assume a batch of size 1).
+  # Sample loop for a batch of sequences
   decoded_sentence = ''
 
   stop_condition = False
   while not stop_condition:
-    # Run the decoder model to get possible 
-    # output tokens (with probabilities) & states
+    # Run the decoder model to get possible output tokens and states
     output_tokens, hidden_state, cell_state = decoder_model.predict(
       [target_seq] + states_value)
 
