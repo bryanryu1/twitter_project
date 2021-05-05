@@ -9,8 +9,6 @@ with open(data_path, 'r', encoding='utf-8') as f:
 
 lines = [re.sub(r"(?:\@|https?\://)\S+", "", line).strip() for line in lines]
 
-# group lines by response pair
-
 def grouper(iterable, n, fillvalue=None):
     args = [iter(iterable)] * n
     return zip_longest(*args, fillvalue=fillvalue)

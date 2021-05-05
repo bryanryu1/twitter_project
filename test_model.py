@@ -8,11 +8,10 @@ import numpy as np
 import re
 
 training_model = load_model('training_model.h5')
-###### because we're working with a saved model
 encoder_inputs = training_model.input[0]
 encoder_outputs, state_h_enc, state_c_enc = training_model.layers[2].output
 encoder_states = [state_h_enc, state_c_enc]
-######
+
 encoder_model = Model(encoder_inputs, encoder_states)
 
 latent_dim = 256
@@ -49,12 +48,11 @@ def decode_sequence(test_input):
     sampled_token = reverse_target_features_dict[sampled_token_index]
     decoded_sentence += " " + sampled_token
 
-    # Exit condition: either hit max length
-    # or find stop token.
+    # Exit condition: either hit max length or find stop token.
     if (sampled_token == '<END>' or len(decoded_sentence) > max_decoder_seq_length):
       stop_condition = True
 
-    # Update the target sequence (of length 1).
+    # Update target sequence 
     target_seq = np.zeros((1, 1, num_decoder_tokens))
     target_seq[0, 0, sampled_token_index] = 1.
 

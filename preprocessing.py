@@ -18,26 +18,20 @@ for line in pairs[:-1]:
   input_docs.append(input_doc)
   # Splitting words from punctuation  
   target_doc = " ".join(re.findall(r"[\w']+|[^\s\w]", target_doc))
-  # Redefine target_doc below 
-  # and append it to target_docs:
   target_doc = '<START> ' + target_doc + ' <END>'
   target_docs.append(target_doc)
   
-  # Now we split up each sentence into words
-  # and add each unique word to our vocabulary set
+  #Split using regex, add to dictionary if unique
   for token in re.findall(r"[\w']+|[^\s\w]", input_doc):
-    # Add your code here:
     if token not in input_tokens:
       input_tokens.add(token)
   for token in target_doc.split():
-    # And here:
     if token not in target_tokens:
       target_tokens.add(token)
 
 input_tokens = sorted(list(input_tokens))
 target_tokens = sorted(list(target_tokens))
 
-# Create num_encoder_tokens and num_decoder_tokens:
 num_encoder_tokens = len(input_tokens)
 num_decoder_tokens = len(target_tokens)
 
@@ -67,10 +61,8 @@ decoder_target_data = np.zeros(
 for line, (input_doc, target_doc) in enumerate(zip(input_docs, target_docs)):
 
   for timestep, token in enumerate(re.findall(r"[\w']+|[^\s\w]", input_doc)):
-    # Assign 1. for the current line, timestep, & word
-    # in encoder_input_data:
+
     encoder_input_data[line, timestep, input_features_dict[token]] = 1.
-    # add in conditional for handling unknown tokens (when token is not in input features dict)
 
   for timestep, token in enumerate(target_doc.split()):
 
