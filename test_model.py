@@ -36,6 +36,7 @@ def decode_sequence(test_input):
   decoded_sentence = ''
 
   stop_condition = False
+  
   while not stop_condition:
     # Run the decoder model to get possible output tokens and states
     output_tokens, hidden_state, cell_state = decoder_model.predict(

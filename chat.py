@@ -8,10 +8,12 @@ class ChatBot:
 
     def start_chat(self):
         chat = input('Hello! Welcome to the cat chatbot. Would you like to discuss with me?')
+
         #Exit chatbot if user doesn't want to chat
         if chat in self.negative_commands:
             print('Alright... Maybe we can chat about cats later. Bye!')
             return
+
         #Check if any future lines want to exit and continue with conversation if not
         while not self.make_exit(chat):
             chat = input(self.generate_response(chat) + '\n')
@@ -22,15 +24,18 @@ class ChatBot:
             if exit_command in user_input:
                 print('Bye! It was nice talking to you.')
                 return True
+
         return False
 
     def string_to_matrix(self, user_input):
         #Strip down user_input using regex
         tokens = re.findall(r"[\w']+|[^\s\w]", user_input)
+
         #Create one hot vector with defined shape
         user_input_matrix = np.zeros(
             (1, max_encoder_seq_length, num_encoder_tokens),
             dtype='float32')
+
         #Check to make sure the token is in the input dictionary
         for timestep, token in enumerate(tokens):
             if token in input_features_dict:
@@ -44,6 +49,7 @@ class ChatBot:
     
         # Generate empty target sequence of length 1.
         target_seq = np.zeros((1, 1, num_decoder_tokens))
+
         # Populate the first token of target sequence with the start token.
         target_seq[0, 0, target_features_dict['<START>']] = 1.
         
@@ -74,6 +80,7 @@ class ChatBot:
             states_value = [hidden_state, cell_state]
         
         decoded_sentence = decoded_sentence.replace('<START>', '').replace('<END>', '')
+        
         return decoded_sentence
 
 catChat = ChatBot()
